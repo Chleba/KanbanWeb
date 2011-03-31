@@ -1,0 +1,176 @@
+
+	{% include "head.html" %}
+		
+		<div class="graphs">
+			<a href="/kanban/graphs">Zobrazit grafy</a>&nbsp;|&nbsp;
+			<a href="/kanban/logout/">Logout</a>&nbsp;|&nbsp;
+			<a href="/kanban/profile/">Profil</a>
+		</div>
+		
+		{% if error_message %}
+			<div class="error">
+				<p>{{ error_message }}</p>
+				{% if last_sprint %}
+					<p>Poslední sprint byl ukončen {{ last_sprint.date_to|date:"d.n.Y" }}</p>
+				{% endif %}
+			</div>
+		{% else %}
+			<div class="addNewTicket">
+				{% include "tickets/addticket.html" %}
+			</div>
+		{% endif %}
+		
+		{% if error %}
+			<p class="error">{{ error }}</p>
+		{% endif %}
+		<div>
+			<div class="collumn todo" id="todo">
+				<h1>TODO</h1>
+				{% if todo %}
+					{% for ticket in todo %}
+						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
+							<h3>{{ ticket.service }}</h3>
+							<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>
+							<p class="date">{{ ticket.pub_date|date:"d.n.Y" }}</p>
+							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
+							<p>{{ ticket.description }}</p>
+							<a href="#" class="avatar">
+								<span class="zoom"></span>
+								{% if ticket.avatarImg %}
+									<img src="{{ ticket.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ ticket.users.all.0 }}" title="{{ ticket.users.all.0 }}" height="40" />
+								{% endif %}
+							</a>
+						</div>
+					{% endfor %}
+					<div class="clear"></div>
+				{% endif %}
+			</div>
+			
+			<div class="collumn devel" id="devel">
+				<h1>DEVEL</h1>
+				{% if devel %}
+					{% for ticket in devel %}
+						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
+							<h3>{{ ticket.service }}</h3>
+							<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>
+							<p class="date">{{ ticket.devel_date|date:"d.n.Y" }}</p>
+							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
+							<p>{{ ticket.description }}</p>
+							<a href="#" class="avatar">
+								<span class="zoom"></span>
+								{% if ticket.avatarImg %}
+									<img src="{{ ticket.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ ticket.users.all.0 }}" title="{{ ticket.users.all.0 }}" height="40" />
+								{% endif %}
+							</a>
+						</div>
+					{% endfor %}
+					<div class="clear"></div>
+				{% endif %}
+			</div>
+			
+			<div class="collumn done" id="done">
+				<h1>DONE</h1>
+				{% if done %}
+					{% for ticket in done %}
+						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
+							<h3>{{ ticket.service }}</h3>
+							<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>
+							<p class="date">{{ ticket.done_date|date:"d.n.Y" }}</p>
+							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
+							<p>{{ ticket.description }}</p>
+							<a href="#" class="avatar">
+								<span class="zoom"></span>
+								{% if ticket.users.all.0.avatarImg != '' %}
+									<img src="{{ ticket.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ ticket.users.all.0 }}" title="{{ ticket.users.all.0 }}" height="40" />
+								{% endif %}
+							</a>
+						</div>
+					{% endfor %}
+					<div class="clear"></div>
+				{% endif %}
+			</div>
+			<div class="clear"></div>
+			
+			<div id="ticketDetailBox" class="addNewTicket">
+				{% if loguser.is_staff %}
+					<p>
+						<a href="#" class="detail-info">info</a>&nbsp;|&nbsp;
+						<a href="#" class="detail-form">edit</a>
+					</p>
+				{% endif %}
+				<form action="/kanban/kanban/ticketedit/" method="post">
+					{% csrf_token %}
+					<input type="hidden" class="ticketId" name="ticketId" value="" />
+					<div class="item" id="td-dates"></div>
+					<div class="row">
+						<label for="td-table">Table: </label>
+						<div class="item" id="td-table">
+							<span class="detailInfo"></span>
+							<select name="tables">
+							</select>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-users">Vlastník: </label>
+						<div class="item" id="td-users">
+							<span class="detailInfo"></span>
+							<select name="users">
+							</select>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-service">Služba: </label>
+						<div class="item" id="td-service">
+							<span class="detailInfo"></span>
+							<input type="text" name="service" value="" />
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-cml">CML: </label>
+						<div class="item" id="td-cml">
+							<span class="detailInfo"></span>
+							<input type="text" name="cmlurl" value="" />
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-dificulty">Obtížnost: </label>
+						<div class="item" id="td-dificulty">
+							<span class="detailInfo"></span>
+							<input type="text" name="difficulty" value="" />
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-desc">Popis: </label>
+						<div class="item" id="td-desc">
+							<span class="detailInfo"></span>
+							<textarea name="description"></textarea>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label>&nbsp;</label>
+						<div class="item">
+							<input type="submit" value="Odeslat" />
+						</div>
+						<div class="clear"></div>
+					</div>
+				</form>
+			</div>
+			
+			<script type="text/javascript">
+				var opt = {
+					todoElm : 'todo',
+					develElm : 'devel',
+					doneElm : 'done'
+				};
+				var tickets = new Kanban.Tickets(opt);
+				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox');
+			</script>
+		</div>	
+		
+	{% include "foot.html" %}

@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>Kanban - login stranka</title>
+	</head>
+	<body>
+		<header>
+			<h1>Kanban tabulka</h1>
+			<h2>Profil stranka</h2>
+		</header>
+		<section>
+			<p>
+				<a href="/kanban/logout/">Logout</a>&nbsp;|&nbsp;<a href="/kanban/kanban/">Kanban tabule</a>
+			</p>
+			<form action="/kanban/profile/edit/" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td>Login name:</td>
+						<td>{{ user.username }}</td>
+					</tr>
+					<tr>
+						<td>Jmeno:</td>
+						<td><input type="text" name="firstName" value="{{ user.firstName }}" /></td>
+					</tr>
+					<tr>
+						<td>Prijmeni:</td>
+						<td><input type="text" name="lastName" value="{{ user.lastName }}" /></td>
+					</tr>
+					<tr>
+						<td>Email:</td>
+						<td><input type="text" name="email" value="{{ user.email }}" /></td>
+					</tr>
+					<tr>
+						<td>avatar:</td>
+						<td>
+							{% if user.avatarImg %}
+								<img src="{{ user.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="" title="" width="160" />
+							{% else %}
+								<input type="file" name="avatarImg" value="" />
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Odeslat" /></td>
+					</tr>
+				</table>
+			</form>
+		
+		</section>
+	</body>
+</html>

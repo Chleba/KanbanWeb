@@ -1,0 +1,84 @@
+
+	{% include "head.html" %}
+			
+		<div class="todo">
+			{% if todo %}
+				{% for ticket in todo %}
+					<div class="item">
+						<form action="" method="post">
+							{% csrf_token %}
+							<p>{{ ticket.service }}</p>
+							<p>
+								{% if tables %}
+									<select name="table">
+										{% for tab in tables %}
+											<option value="{{ tab.id }}">{{ tab.name }}</option>
+										{% endfor %}
+									</select>
+								{% endif %}
+							</p>
+							<p>{{ ticket.description }}</p>
+						</form>
+					</div>
+				{% endfor %}
+				<div class="clear"></div>
+			{% else %}
+				<p>No todo are available.</p>
+			{% endif %}
+		</div>
+		
+		<div class="devel">
+			{% if devel %}
+				{% for ticket in devel %}
+					<div class="item">
+						<form action="" method="post">
+							{% csrf_token %}
+							<p>{{ ticket.service }}</p>
+							<p>
+								{% if tables %}
+									<select name="table">
+										{% for tab in tables %}
+											<option value="{{ tab.id }}">{{ tab.name }}</option>
+										{% endfor %}
+									</select>
+								{% endif %}
+							</p>
+							<p>{{ ticket.description }}</p>
+						</form>
+					</div>
+				{% endfor %}
+				<div class="clear"></div>
+			{% else %}
+				<p>No devel are available.</p>
+			{% endif %}
+		</div>
+		
+		<div class="done">
+			{% if done %}
+				{% for ticket in done %}
+					<div class="item">
+						<form action="" method="post">
+							{% csrf_token %}
+							<p>{{ ticket.service }}</p>
+							<p>
+								{% if tables %}
+									<select name="table">
+										{% for tab in tables %}
+											<option value="{{ tab.id }}" {% if tab.id == ticket.tables.id %}selected="selected"{% endif %}>{{ tab.name }}</option>
+										{% endfor %}
+									</select>
+								{% endif %}
+							</p>
+							<p>{{ ticket.description }}</p>
+						</form>
+					</div>
+				{% endfor %}
+				<div class="clear"></div>
+			{% else %}
+				<p>No done are available.</p>
+			{% endif %}
+		</div>
+		<div class="clear"></div>
+		
+	</body>
+</html>

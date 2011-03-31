@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<title>Polls results</title>
+	</head>
+	<body>
+		<h1>{{ poll.question }}</h1>
+		<ul>
+			{% for choise in poll.choise_set.all %}
+				<li>{{ choise.choise }} -- {{ choise.votes }} vote {{ choise.votes|pluralize }} </li>
+			{% endfor %}
+		</ul>
+		<p><a href="/polls/{{poll.id}}/">Chcete znovu hlasovat?</a></p>
+	</body>
+</html>
+

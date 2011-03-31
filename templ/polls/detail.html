@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title>Polls detail</title>
+	</head>
+	<body>
+		<h1>{{ poll.question }}</h1>
+		
+		{% if error_message %}
+			<p><strong>{{ error_message }}</strong></p>
+		{% endif %}
+		
+		<form action="/polls/{{ poll.id }}/vote/" method="post">
+			{% csrf_token %}
+			{% for choise in poll.choise_set.all %}
+				<div>
+					<input type="radio" id="choise{{ forloop.counter }}" name="choise" value="{{ choise.id }}" />
+					<label for="choise{{ forloop.counter }}">{{ choise.choise }}</label>
+				</div>
+			{% endfor %}
+			<input type="submit" value="Odeslat" />
+		</form>
+	</body>
+</html>
+

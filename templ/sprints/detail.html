@@ -1,0 +1,47 @@
+{% include "head.html" %}
+
+	<p><a href="/kanban/kanban/">&laquo;Zpět na tabuli</a></p>
+
+	<h1>Detail sprintu {{ sprint.date_from|date:"d.n.Y" }} - {{ sprint.date_to|date:"d.n.Y" }}</h1>
+
+	<div>
+		{% if dates %}
+			{% for d in dates %}
+				<p>{{ d|date:"d.n.Y" }}</p>
+			{% endfor %}
+		{% endif %}
+		<hr />
+		
+		<div id="graphRoot" style="height:180px; width:80%; position:relative;"></div>
+		
+		<script>
+			
+			var dates = [];
+			{% for d in dates %}
+				dates.push({ label : '{{ d|date:"d.n.Y" }}', color : '#000', width : '1px' });
+			{% endfor %}
+			var todo = [];
+			{% for todo in todo %}
+				todo.push({{ todo }});
+			{% endfor %}
+			devel = [];
+			{% for devel in devel %}
+				devel.push({{ devel }});
+			{% endfor %}
+			done = [];
+			{% for done in done %}
+				done.push({{ done }});
+			{% endfor %}
+			
+			var todo = { label : 'todo', data : todo };
+			var devel = {label : 'devel', data : devel };
+			var done = { label : 'done', data : done };
+			var all = [ todo, devel, done ];
+			var lbchart = new JAK.LBChart(JAK.gel('graphRoot'), all, dates, {});
+			
+		</script>
+		
+		
+	</div>
+
+{% include "foot.html" %}

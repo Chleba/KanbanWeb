@@ -1,0 +1,58 @@
+<a href="#" id="addTicket" class="addTicketButton radius-all">Přidat nový ticket</a>
+<div id="addticketRoot">
+	<form action="/kanban/kanban/addticket/" method="post">
+		{% csrf_token %}
+		<div class="row">
+			<label for="service">Služba:</label>
+			<div class="item">
+				<input id="service" type="text" name="service" value="" />
+			</div>
+			<div class="clear"></div>
+		</div>
+		{% if loguser.is_staff %}
+			<div class="row">
+				<label for="user">Vlastník:</label>
+				<div class="item">
+					<select id="user" name="user">
+						{% for u in users %}
+							<option value="{{ u.id }}">{{ u.first_name }}&nbsp;{{ u.last_name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="clear"></div>
+			</div>
+		{% endif %}
+		<div class="row">
+			<label for="cmlurl">CML URL:</label>
+			<div class="item">
+				<input id="cmlurl" type="text" name="cmlurl" value="" />
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="row">
+			<label for="difficulty">Obtížnost:</label>
+			<div class="item">
+				<input id="difficulty" type="text" name="difficulty" value="" />
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="row">
+			<label for="description">Popis:</label>
+			<div class="item">
+				<textarea id="description" name="description" cols="3" rows="5"></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="row">
+			<label>&nbsp;</label>
+			<div class="item"><input type="submit" value="Odeslat" /></div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	var ato = {
+		opener : 'addTicket',
+		mainElm : 'addticketRoot'
+	};
+	var addticketopen = new Kanban.Opener(ato);
+</script>

@@ -1,5 +1,5 @@
 <a href="#" id="addTicket" class="addTicketButton radius-all">Přidat nový ticket</a>
-<div id="addticketRoot">
+<div id="addticketRoot" class="radius-all">
 	<form action="/kanban/kanban/addticket/" method="post">
 		{% csrf_token %}
 		<div class="row">
@@ -13,9 +13,13 @@
 			<div class="row">
 				<label for="user">Vlastník:</label>
 				<div class="item">
-					<select id="user" name="user">
+					<select id="user" name="user" multiple="multiple">
 						{% for u in users %}
-							<option value="{{ u.id }}">{{ u.first_name }}&nbsp;{{ u.last_name }}</option>
+							{% if u.first_name == '' %}
+								<option value="{{ u.id }}">{{ u.username }}</option>
+							{% else %}
+								<option value="{{ u.id }}">{{ u.first_name }}&nbsp;{{ u.last_name }}</option>
+							{% endif %}
 						{% endfor %}
 					</select>
 				</div>

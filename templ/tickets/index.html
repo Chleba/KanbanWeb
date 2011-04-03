@@ -24,16 +24,25 @@
 			<p class="error">{{ error }}</p>
 		{% endif %}
 		<div>
-			<div class="collumn todo" id="todo">
+			<div class="collumn todo radius-all-small" id="todo">
 				<h1>TODO</h1>
 				{% if todo %}
 					{% for ticket in todo %}
 						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
 							<h3>{{ ticket.service }}</h3>
-							<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>
+							<!---<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>--->
 							<p class="date">{{ ticket.pub_date|date:"d.n.Y" }}</p>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
-							<p>{{ ticket.description }}</p>
+							<p>
+								{% for u in ticket.users.all %}
+									{% if u.get_profile.avatarImg %}
+										{{ u.get_profile.avatarImg }}
+									{% else %}
+										{{ u.username }}
+									{% endif %}
+								{% endfor %}
+							</p>
+							<!--- <p>{{ ticket.description }}</p> --->
 							<a href="#" class="avatar">
 								<span class="zoom"></span>
 								{% if ticket.avatarImg %}
@@ -46,13 +55,13 @@
 				{% endif %}
 			</div>
 			
-			<div class="collumn devel" id="devel">
+			<div class="collumn devel radius-all-small" id="devel">
 				<h1>DEVEL</h1>
 				{% if devel %}
 					{% for ticket in devel %}
 						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
 							<h3>{{ ticket.service }}</h3>
-							<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>
+							<!---<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>--->
 							<p class="date">{{ ticket.devel_date|date:"d.n.Y" }}</p>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
 							<p>{{ ticket.description }}</p>
@@ -68,7 +77,7 @@
 				{% endif %}
 			</div>
 			
-			<div class="collumn done" id="done">
+			<div class="collumn done radius-all-small" id="done">
 				<h1>DONE</h1>
 				{% if done %}
 					{% for ticket in done %}
@@ -115,7 +124,7 @@
 						<label for="td-users">Vlastník: </label>
 						<div class="item" id="td-users">
 							<span class="detailInfo"></span>
-							<select name="users">
+							<select name="users" multiple="multiple">
 							</select>
 						</div>
 						<div class="clear"></div>

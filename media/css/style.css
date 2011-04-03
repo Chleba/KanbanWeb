@@ -1,7 +1,7 @@
-html		{ font-size:106.5%; margin:0; padding:0; background-color:#FFF; }
-body		{ color:#000; font-size:76.5%; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; margin:0; padding:0; background-color:#FFF; }
+html		{ font-size:106.5%; margin:0; padding:0; background-color:#2d332f; }
+body		{ color:#000; font-size:76.5%; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; margin:0; padding:0; background-color:#2d332f; }
 h1,h2,h3,h4,h5,h6,p,ul,ol,form, table		{ padding:0; margin:0; }
-a			{ color:#000; text-decoration:underline }
+a			{ color:#000; text-decoration:underline; }
 a:hover     { text-decoration:none; }
 a img		{ border:0px; padding:0; margin:0; }
 .clear		{ clear:both; overflow:hidden; padding:0 !important; margin:0 !important; float:none !important; font-size:0; height:0; }
@@ -19,13 +19,17 @@ a img		{ border:0px; padding:0; margin:0; }
 
 h1				{ color:#000; text-align:center; }
 
+.graphs 		{ color:#fff; }
+.graphs a 		{ color:#fff; }
+
 .addTicketButton		{ background:#ccc url(/media/img/button-plus.png) 8px 50% no-repeat; display:block; padding:8px 8px 8px 32px; border:2px solid #666; color:#000; font-weight:bold; font-size:125.5%; text-decoration:none; margin:5px auto; width:160px; }
 
-.collumn				{ width:30%; border:1px solid #666; float:left; padding:5px; background-color:#666; min-height:650px; _height:650px; border-right:1px solid #FFF; }
-.collumn h1				{ color:#FFF; text-align:center; }
+.collumn				{ width:31.9%; border:3px solid #464b47; float:left; margin-left:10px; background:#666 url(/media/img/ticketsbg.png) left top repeat; min-height:650px; _height:650px; }
+.collumn h1				{ color:#FFF; text-align:left; text-transform:uppercase; padding:7px 0 0 15px; background:url(/media/img/tabbg.png) left top repeat-x; height:38px; }
 .collumn ul,ol			{ padding:0; margin:0; list-style-type:none; }
 .collumn .ticket,
-.ticket					{ background-color:#FFDB6E; padding:3px; border:2px solid #fff; width:125px; height:125px; margin:2px 2px 0 0; float:left; overflow:hidden; position:relative; }
+.ticket					{ background-color:#dfe9e5; padding:8px; border:3px solid #b3bab7; width:43%; height:130px; margin:5px 0px 0px 5px; float:left; overflow:hidden; position:relative; }
+.collumn .ticket h3		{ color:#3366cc; }
 .ticket.draggable		{ opacity:0.6; }
 .ticket .avatar			{ position:absolute; bottom:1px; right:1px; display:block; width:45px; height:45px; overflow:hidden; }
 .ticket .avatar .zoom	{ background:url(/media/img/zoom.png) left top no-repeat; width:43px; height:43px; display:block; z-index:2; position:absolute; }
@@ -33,7 +37,8 @@ h1				{ color:#000; text-align:center; }
 .collumn .item h3		{ text-align:center; border-bottom:1px solid #666; }
 .collumn .date			{ font-size:90%; }
 
-.addNewTicket							{}
+.addNewTicket							{ position:relative; }
+#addticketRoot							{ position:absolute; top:45px; z-index:50; border:3px solid #666; left:25%; }
 .addNewTicket form						{ width:100%; }
 .addNewTicket form .row					{}
 .addNewTicket form .row label			{ float:left; width:8em; display:block; text-align:right; padding-right:5px; position:relative; top:5px; font-weight:bold; }
@@ -44,8 +49,8 @@ h1				{ color:#000; text-align:center; }
 .addNewTicket #addticketRoot			{ width:50%; margin:0 auto; background-color:#FFDB6E; padding:8px; display:none; }
 
 .detailBg				{ position:absolute; opacity:0.7; background-color:#000; top:0px; left:0px; display:none; }
-.ticketDetail			{ position:absolute; width:550px; margin:0 auto; visibility:hidden; top:-1000px; left:-1000px; }
-#ticketDetailBox		{ padding:10px; }
+.ticketDetail			{ position:absolute; width:50%; margin:0 auto; visibility:hidden; top:-1000px; left:-1000px; display:none; }
+#ticketDetailBox		{ padding:10px; font-size:20px; }
 #ticketDetailBox input,
 #ticketDetailBox select,
 #ticketDetailBox textarea	{ display:none; }

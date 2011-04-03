@@ -88,7 +88,7 @@ Kanban.Opener.prototype.$constructor = function(opt){
 		mainElm : null,
 		animation : true,
 		hideElm : null,
-		open : false
+		isOpen : false
 	};
 	for(var p in opt){
 		this.opt[p] = opt[p];
@@ -99,12 +99,18 @@ Kanban.Opener.prototype.$constructor = function(opt){
 	this.dom.closer = this.opt.closer == null ? null : JAK.gel(this.opt.closer);
 	this.dom.mainElm = JAK.gel(this.opt.mainElm);
 	this.dom.hideElm = this.opt.hideElm == null ? null : JAK.gel(this.opt.hideElm);
+	this.isOpen = false;
 	/*- jestlize ma byt na zacatku otevreny -*/
-	if(this.opt.open){ this.dom.mainElm.style.display = 'block'; }
+	if(this.opt.isOpen){
+		this.dom.mainElm.style.display = 'block';
+		this.isOpen = this.opt.isOpen;
+	}
 	this._link();
 };
 Kanban.Opener.prototype.open = function(e, elm){
 	JAK.Events.cancelDef(e);
+	if(this.isOpen){ return this.close(); }
+	
 	/*-this.dom.opener.style.display = 'none';-*/
 	if(this.dom.closer){ this.dom.closer.style.display = 'inline'; }
 	if(this.dom.hideElm){ this.dom.hideElm.style.display = 'none'; }
@@ -118,6 +124,7 @@ Kanban.Opener.prototype.open = function(e, elm){
 	} else {
 		this.dom.mainElm.style.display = 'block';
 	}
+	this.isOpen = true;
 };
 Kanban.Opener.prototype._getBoxHeight = function(){
 	this.height = this.dom.mainElm.offsetHeight;
@@ -126,35 +133,46 @@ Kanban.Opener.prototype._open = function(){
 	this.dom.mainElm.style.height = '0px';
 	this.dom.mainElm.style.overflow = 'hidden';
 	this.dom.mainElm.style.visibility = 'visible';
-	this.dom.mainElm.style.position = 'relative';
+	this.dom.mainElm.style.position = 'absolute';
+	this.dom.mainElm.style.height = this.height+'px';
 	var height = this.height;
-	var interpolator = new JAK.CSSInterpolator(this.dom.mainElm,500/*,{ endCallback: this._sendNotice.bind(this) }*/);
-	interpolator.addProperty('height',0,height,'px');
+	var interpolator = new JAK.CSSInterpolator(this.dom.mainElm,360/*,{ endCallback: this._sendNotice.bind(this) }*/);
+	/*-interpolator.addProperty('height',0,height,'px');-*/
+	interpolator.addProperty('opacity', 0, 1, '');
 	interpolator.start();
 };
 Kanban.Opener.prototype.close = function(e, elm){
-	JAK.Events.cancelDef(e);
-	this.dom.opener.style.display = 'inline';
-	if(this.dom.closer){ this.dom.closer.style.display = 'none'; }
-	if(this.opt.animation){
-		this._close();
-	} else {
-		this.dom.mainElm.display = 'none';
+	if(e){ JAK.Events.cancelDef(e); }
+	if(this.isOpen == true){
+		if(this.dom.closer){ this.dom.closer.style.display = 'none'; }
+		if(this.opt.animation){
+			this._close();
+		} else {
+			this.dom.mainElm.display = 'none';
+		}
 	}
+	this.isOpen = false;
 };
 Kanban.Opener.prototype._close = function(){
 	var height = this.height;
-	var interpolator = new JAK.CSSInterpolator(this.dom.mainElm, 500,{ endCallback: this._setMainBack.bind(this) });
-	interpolator.addProperty('height',height,0,'px');
+	var interpolator = new JAK.CSSInterpolator(this.dom.mainElm, 360,{ endCallback: this._setMainBack.bind(this) });
+	/*-interpolator.addProperty('height',height,0,'px');-*/
+	interpolator.addProperty('opacity', 1, 0, '');
 	interpolator.start();
 };
 Kanban.Opener.prototype._setMainBack = function(){
 	this.dom.mainElm.style.height = 'auto';
 	this.dom.mainElm.style.display = 'none';
 };
+Kanban.Opener.prototype._escClose = function(e, elm){
+	if(e.keyCode == 27){
+		this.close();
+	}
+};
 Kanban.Opener.prototype._link = function(){
 	this.ec.push( JAK.Events.addListener(this.dom.opener, 'click', this, 'open') );
 	if(this.dom.closer){ this.ec.push( JAK.Events.addListener(this.dom.closer, 'click', this, 'close') ); }
+	this.ec.push( JAK.Events.addListener(window, 'keypress', this, '_escClose') );
 };
 
 /**
@@ -200,14 +218,17 @@ Kanban.TicketDetail.prototype._posBox = function(elm){
 	/*- kolik ma detailBox -*/
 	this.dom.detailElm.visibility = 'hidden';
 	this.dom.detailElm.display = 'block';
-	var tboxWidth = this.dom.detailElm.offsetWidth;
-	var tboxHeight = this.dom.detailElm.offsetHeight;
+	var tboxWidth = document.body.offsetWidth/2;
+	var tboxHeight = document.body.offsetHeight/2;
 	var tboxLeft = (((tboxWidth-document.body.offsetWidth)/2)*-1);
+	var tboxTop = (document.body.offsetHeight/2)+JAK.DOM.getBoxScroll(document.body).top;
 	/*- animace -*/
 	var inter = new JAK.CSSInterpolator(this.dom.cloneElm, 400, { interpolation: JAK.Interpolator.SIN, endCallback : this._showForm.bind(this) });
 	inter.addProperty('width', this.dom.cloneElm.offsetWidth, tboxWidth, 'px');
 	inter.addProperty('height', this.dom.cloneElm.offsetHeight, tboxHeight, 'px');
 	inter.addProperty('left', tPos.left, tboxLeft, 'px');
+	inter.addProperty('top', tPos.top, tboxTop, 'px');
+	inter.addProperty('opacity', 0, 1, '');
 	inter.start();
 };
 Kanban.TicketDetail.prototype._showForm = function(){

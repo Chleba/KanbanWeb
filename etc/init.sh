@@ -1,12 +1,12 @@
 #/bin/bash
 
 # base project directory
-PROJECT_DIR=/home/chleba/chlebaPrivate/kanban
+PROJECT_DIR=/home/chleba/www/kanban
 # apache symlink name
 BIN=kanban
 
 # apache config file
-APACHE_CONF_FILE=${PROJECT_DIR}/conf/httpd.conf
+APACHE_CONF_FILE=${PROJECT_DIR}/conf/httpd.conf.dev
 
 
 NAME=`/usr/bin/basename ${BIN}`

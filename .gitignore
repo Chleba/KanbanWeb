@@ -1,2 +1,10 @@
+*.pyc
 settings.py
 conf/httpd.conf
+log/kanban.pid
+log/*.pyc
+news/*.pyc
+users/*.pyc
+tickets/*.pyc
+log/httpd-access_log
+log/httpd-error_log

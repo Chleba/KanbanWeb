@@ -4625,3 +4625,19 @@
 [Thu Mar 31 11:01:51 2011] [error] [client ::1] File does not exist: /home/chleba/chlebaPrivate/kanban/favicon.ico
 [Thu Mar 31 11:01:52 2011] [error] [client ::1] File does not exist: /home/chleba/chlebaPrivate/kanban/favicon.ico
 [Thu Mar 31 11:01:57 2011] [error] [client ::1] File does not exist: /home/chleba/chlebaPrivate/kanban/favicon.ico
+[Sun Apr 03 23:04:03 2011] [error] python_init: Python version mismatch, expected '2.6.5', found '2.6.6'.
+[Sun Apr 03 23:04:03 2011] [error] python_init: Python executable found '/usr/bin/python'.
+[Sun Apr 03 23:04:03 2011] [error] python_init: Python path being used '/usr/lib/python2.6/:/usr/lib/python2.6/plat-linux2:/usr/lib/python2.6/lib-tk:/usr/lib/python2.6/lib-old:/usr/lib/python2.6/lib-dynload'.
+[Sun Apr 03 23:04:03 2011] [notice] mod_python: Creating 5 session mutexes based on 5 max processes and 0 max threads.
+[Sun Apr 03 23:04:03 2011] [notice] mod_python: using mutex_directory /tmp 
+[Sun Apr 03 23:04:03 2011] [notice] Apache/2.2.16 (Ubuntu) mod_python/3.3.1 Python/2.6.6 configured -- resuming normal operations
+[Sun Apr 03 23:04:03 2011] [info] Server built: Nov 18 2010 21:17:43
+[Sun Apr 03 23:04:03 2011] [debug] prefork.c(1013): AcceptMutex: sysvsem (default: sysvsem)
+[Sun Apr 03 23:04:07 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/
+[Sun Apr 03 23:04:07 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/
+[Sun Apr 03 23:04:09 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/
+[Sun Apr 03 23:04:12 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/
+[Sun Apr 03 23:09:10 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/
+[Sun Apr 03 23:09:11 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/
+[Sun Apr 03 23:09:19 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/
+[Sun Apr 03 23:09:21 2011] [error] [client 127.0.0.1] File does not exist: /home/chleba/www/kanban/home, referer: http://localhost:1234/kanban/kanban/

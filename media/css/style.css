@@ -31,6 +31,8 @@ h1				{ color:#000; text-align:center; }
 .ticket					{ background-color:#dfe9e5; padding:8px; border:3px solid #b3bab7; width:43%; height:130px; margin:5px 0px 0px 5px; float:left; overflow:hidden; position:relative; }
 .collumn .ticket h3		{ color:#3366cc; }
 .ticket.draggable		{ opacity:0.6; }
+.ticket .owners			{ margin:10px 0; }
+.ticket .owners p		{ width:60px; height:60px; padding:1px; border:1px solid #FFF; overflow:hidden; float:left; background-color:#000; }
 .ticket .avatar			{ position:absolute; bottom:1px; right:1px; display:block; width:45px; height:45px; overflow:hidden; }
 .ticket .avatar .zoom	{ background:url(/media/img/zoom.png) left top no-repeat; width:43px; height:43px; display:block; z-index:2; position:absolute; }
 .ticket .avatar	img		{ border:1px solid #FFF; z-index:2; }

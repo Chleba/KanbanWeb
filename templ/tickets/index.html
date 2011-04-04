@@ -33,21 +33,19 @@
 							<!---<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>--->
 							<p class="date">{{ ticket.pub_date|date:"d.n.Y" }}</p>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
-							<p>
+							<div class="owners">
 								{% for u in ticket.users.all %}
 									{% if u.get_profile.avatarImg %}
-										{{ u.get_profile.avatarImg }}
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="60" /></p>
 									{% else %}
 										{{ u.username }}
 									{% endif %}
 								{% endfor %}
-							</p>
+								<div class="clear"></div>
+							</div>
 							<!--- <p>{{ ticket.description }}</p> --->
 							<a href="#" class="avatar">
 								<span class="zoom"></span>
-								{% if ticket.avatarImg %}
-									<img src="{{ ticket.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ ticket.users.all.0 }}" title="{{ ticket.users.all.0 }}" height="40" />
-								{% endif %}
 							</a>
 						</div>
 					{% endfor %}
@@ -64,12 +62,19 @@
 							<!---<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>--->
 							<p class="date">{{ ticket.devel_date|date:"d.n.Y" }}</p>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
-							<p>{{ ticket.description }}</p>
+							<div class="owners">
+								{% for u in ticket.users.all %}
+									{% if u.get_profile.avatarImg %}
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="60" /></p>
+									{% else %}
+										{{ u.username }}
+									{% endif %}
+								{% endfor %}
+								<div class="clear"></div>
+							</div>
+							<!--- <p>{{ ticket.description }}</p> --->
 							<a href="#" class="avatar">
 								<span class="zoom"></span>
-								{% if ticket.avatarImg %}
-									<img src="{{ ticket.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ ticket.users.all.0 }}" title="{{ ticket.users.all.0 }}" height="40" />
-								{% endif %}
 							</a>
 						</div>
 					{% endfor %}
@@ -86,12 +91,19 @@
 							<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>
 							<p class="date">{{ ticket.done_date|date:"d.n.Y" }}</p>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
-							<p>{{ ticket.description }}</p>
+							<div class="owners">
+								{% for u in ticket.users.all %}
+									{% if u.get_profile.avatarImg %}
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="60" /></p>
+									{% else %}
+										{{ u.username }}
+									{% endif %}
+								{% endfor %}
+								<div class="clear"></div>
+							</div>
+							<!--- <p>{{ ticket.description }}</p> --->
 							<a href="#" class="avatar">
 								<span class="zoom"></span>
-								{% if ticket.users.all.0.avatarImg != '' %}
-									<img src="{{ ticket.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ ticket.users.all.0 }}" title="{{ ticket.users.all.0 }}" height="40" />
-								{% endif %}
 							</a>
 						</div>
 					{% endfor %}

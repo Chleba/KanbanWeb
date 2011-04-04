@@ -9,7 +9,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		{% if loguser.is_staff %}
+		{% if loguser.is_superuser %}
 			<div class="row">
 				<label for="user">Vlastník:</label>
 				<div class="item">
@@ -22,6 +22,20 @@
 							{% endif %}
 						{% endfor %}
 					</select>
+				</div>
+				<div class="clear"></div>
+			</div>
+		{% endif %}
+		{% if loguser.is_staff %}
+			<div class="row">
+				<label for="user">Vlastník:</label>
+				<div class="item">
+					{% if loguser.first_name == '' %}
+						<strong>{{ loguser.username }}</strong>
+					{% else %}
+						<strong>{{ loguser.first_name }}&nbsp;{{ loguser.last_name }}</strong>
+					{% endif %}
+					<input type="hidden" name="user" value="{{ loguser.id }}"
 				</div>
 				<div class="clear"></div>
 			</div>

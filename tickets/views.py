@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Create your views here
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -154,7 +156,7 @@ def addticket(req):
     service = req.POST['service']
     cmlurl = httpParser(req.POST['cmlurl'])
     difficulty = req.POST['difficulty']
-    description = req.POST['description']
+    description = req.POST['description'].encode('utf-8')
     try:
         newticket = Tickets(service=service, cmlurl=cmlurl, difficulty=int(difficulty), description=description, pub_date=datetime.now())
     except (KeyError, Tickets.DoesNotExist):

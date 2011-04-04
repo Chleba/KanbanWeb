@@ -30,13 +30,14 @@
 					{% for ticket in todo %}
 						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
 							<h3>{{ ticket.service }}</h3>
-							<!---<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>--->
 							<p class="date">{{ ticket.pub_date|date:"d.n.Y" }}</p>
+							<div class="clear"></div>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
+							<p>{{ ticket.description }}</p>
 							<div class="owners">
 								{% for u in ticket.users.all %}
 									{% if u.get_profile.avatarImg %}
-										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="60" /></p>
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
 									{% else %}
 										{{ u.username }}
 									{% endif %}
@@ -59,13 +60,14 @@
 					{% for ticket in devel %}
 						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
 							<h3>{{ ticket.service }}</h3>
-							<!---<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>--->
 							<p class="date">{{ ticket.devel_date|date:"d.n.Y" }}</p>
+							<div class="clear"></div>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
+							<p>{{ ticket.description }}</p>
 							<div class="owners">
 								{% for u in ticket.users.all %}
 									{% if u.get_profile.avatarImg %}
-										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="60" /></p>
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
 									{% else %}
 										{{ u.username }}
 									{% endif %}
@@ -88,13 +90,14 @@
 					{% for ticket in done %}
 						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">
 							<h3>{{ ticket.service }}</h3>
-							<p>{% if ticket.users %}<strong>{{ ticket.users.all.0 }}</strong>{% endif %}</p>
 							<p class="date">{{ ticket.done_date|date:"d.n.Y" }}</p>
+							<div class="clear"></div>
 							<p><a href="{{ ticket.cmlurl }}">CML</a></p>
+							<p>{{ ticket.description }}</p>
 							<div class="owners">
 								{% for u in ticket.users.all %}
 									{% if u.get_profile.avatarImg %}
-										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="60" /></p>
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
 									{% else %}
 										{{ u.username }}
 									{% endif %}

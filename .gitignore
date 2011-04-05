@@ -8,3 +8,6 @@ users/*.pyc
 tickets/*.pyc
 log/httpd-access_log
 log/httpd-error_log
+media/*
+kanban.mysql
+kanban2.mysql

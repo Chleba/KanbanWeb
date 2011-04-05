@@ -55,7 +55,7 @@
 			</div>
 			
 			<div class="collumn devel radius-all-small" id="devel">
-				<h1>DEVEL</h1>
+				<h1>DEVEL ({{ sprint.0.max_develop }})</h1>
 				{% if devel %}
 					{% for ticket in devel %}
 						<div class="ticket radius-all" id="ticket-{{ ticket.id }}">

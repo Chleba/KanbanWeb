@@ -25,20 +25,21 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-		{% endif %}
-		{% if loguser.is_staff %}
-			<div class="row">
-				<label for="user">Vlastník:</label>
-				<div class="item">
-					{% if loguser.first_name == '' %}
-						<strong>{{ loguser.username }}</strong>
-					{% else %}
-						<strong>{{ loguser.first_name }}&nbsp;{{ loguser.last_name }}</strong>
-					{% endif %}
-					<input type="hidden" name="user" value="{{ loguser.id }}"
+		{% else %}
+			{% if loguser.is_staff %}
+				<div class="row">
+					<label for="user">Vlastník:</label>
+					<div class="item">
+						{% if loguser.first_name == '' %}
+							<strong>{{ loguser.username }}</strong>
+						{% else %}
+							<strong>{{ loguser.first_name }}&nbsp;{{ loguser.last_name }}</strong>
+						{% endif %}
+						<input type="hidden" name="user" value="{{ loguser.id }}"
+					</div>
+					<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
-			</div>
+			{% endif %}
 		{% endif %}
 		<div class="row">
 			<label for="cmlurl">CML URL:</label>
@@ -50,7 +51,18 @@
 		<div class="row">
 			<label for="difficulty">Obtížnost:</label>
 			<div class="item">
-				<input id="difficulty" type="text" name="difficulty" value="" />
+				<select name="difficulty">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
 			</div>
 			<div class="clear"></div>
 		</div>

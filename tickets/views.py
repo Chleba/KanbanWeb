@@ -85,6 +85,7 @@ def index(req):
             'tables' : tables,
             'users' : users,
             'loguser' : logUser,
+            'sprint' : sprint,
         }, context_instance = RequestContext(req))
     else:
         '''
@@ -186,17 +187,27 @@ def addticket(req):
 @login_required
 def edit(req):
     postData = req.POST
-    user = User.objects.get(pk=postData['users'])
     table = Tables.objects.get(pk=postData['tables'])
     ticket = Tickets.objects.get(pk=postData['ticketId'])
     ticket.service = postData['service']
     ticket.cmlurl = httpParser(postData['cmlurl'])
     ticket.difficulty = postData['difficulty']
     ticket.save()
-    if len(ticket.users.all()) > 0:
-        ticket.users.remove(ticket.users.all()[0])
+
+    #odstraneni vsech uzivatelu z ticketu
+    tusers = ticket.users.all()
+    if len(tusers) > 1:
+        for tu in tusers:
+            ticket.users.remove(tu)
+        #endfor
     #endif
-    ticket.users.add(user)
+    #pridani novych uzivatelu do ticketu
+    users = postData.getlist('users')
+    for u in users:
+        user = User.objects.get(pk=int(u))
+        ticket.users.add(user)
+    #endfor
+
     ticket.tables.remove(ticket.tables.all()[0])
     ticket.tables.add(table)
     ticket.save()
@@ -205,6 +216,7 @@ def edit(req):
 
 @login_required
 def detail(req, ticket_id):
+    logUser = req.user
     ticket = Tickets.objects.get(pk=ticket_id)
     tables = Tables.objects.all()
     users = User.objects.all()
@@ -216,19 +228,29 @@ def detail(req, ticket_id):
         'description : "'+str(ticket.description)+'",'\
         'pub_date : "'+str(ticket.pub_date)+'",'\
         'users : ['
-    ic = 0
-    for u in users:
-        ic+=1
-        json += '{ name : "'+str(u)+'", id : '+str(u.id)
-        if len(ticket.users.all()) > 0:
-            if u.id == ticket.users.all()[0].id:
-                json += ', selected : "1"'
+
+    if logUser.is_superuser:
+        ic = 0
+        for u in users:
+            ic+=1
+            json += '{ name : "'+str(u)+'", id : '+str(u.id)
+            if len(ticket.users.all()) > 0:
+                if u.id == ticket.users.all()[0].id:
+                    json += ', selected : "1"'
+                #endif
             #endif
+            json += ' }'
+            if ic < len(users):
+                json += ','
+        #endfor
+    else:
+        json += '{ name : "'+str(logUser)+'", id : '+str(logUser.id)
+        if logUser.id == ticket.users.filter(pk=logUser.id):
+            json += ', selected : "1"'
         #endif
         json += ' }'
-        if ic < len(users):
-            json += ','
-    #endfor
+    #endif
+
     json += '],'\
         'tables : ['
     ic = 0

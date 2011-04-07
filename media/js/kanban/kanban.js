@@ -340,4 +340,34 @@ Kanban.TicketDetail.prototype._link = function(){
 	}
 };
 
-
+/*- userTicket -*/
+Kanban.UsersTickets = JAK.ClassMaker.makeClass({
+	NAME : 'Kanban.UsersTickets',
+	VERSION : '1.0'
+});
+Kanban.UsersTickets.prototype.$constructor = function(select){
+	this.select = JAK.gel(select);
+	this.ec = [];
+	this._link();
+};
+Kanban.UsersTickets.prototype._changeTickets = function(e, elm){
+	var user = elm.value;
+	var imgs = JAK.gel('tablesTickets').getElementsByTagName('img');
+	for(var i=0;i<imgs.length;i++){
+		if(user == '0'){
+			var nodeElm = imgs[i].parentNode.parentNode.parentNode;
+			nodeElm.style.display = 'block';
+		} else {
+			if(imgs[i].alt != user){
+				var nodeElm = imgs[i].parentNode.parentNode.parentNode;
+				nodeElm.style.display = 'none';
+			} else {
+				var nodeElm = imgs[i].parentNode.parentNode.parentNode;
+				nodeElm.style.display = 'block';
+			}
+		}
+	}
+};
+Kanban.UsersTickets.prototype._link = function(){
+	this.ec.push( JAK.Events.addListener(this.select, 'change', this, '_changeTickets') );
+};

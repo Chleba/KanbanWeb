@@ -63,3 +63,8 @@ h1				{ color:#000; text-align:center; }
 
 .loading				{ background:#000 url(/media/img/ajax-loader.gif) 50% 50% no-repeat; }
 
+#graphRoot				{ width:50%; margin:0 auto; }
+.graphDetail 			{ color:#fff; }
+.graphDetail h1			{ color:#fff; }
+.graphDetail a 			{ color:#fff; }
+

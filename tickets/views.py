@@ -110,7 +110,6 @@ def movetododevel(req, ticket_id):
         doneText = '{ status : "userError", ticketId : '+ticket_id+', table : "devel" }'
         return HttpResponse(doneText)
     else:
-
         if ticket:
             ticket.tables = table
             ticket.devel_date = datetime.now()
@@ -192,6 +191,7 @@ def edit(req):
     ticket.service = postData['service']
     ticket.cmlurl = httpParser(postData['cmlurl'])
     ticket.difficulty = postData['difficulty']
+    ticket.description = postData['description']
     ticket.save()
 
     #odstraneni vsech uzivatelu z ticketu

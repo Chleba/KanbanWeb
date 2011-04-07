@@ -1,5 +1,5 @@
 {% include "head.html" %}
-
+<div class="graphDetail">
 	<p><a href="/kanban/kanban/">&laquo;Zpět na tabuli</a></p>
 
 	<h1>Detail sprintu {{ sprint.date_from|date:"d.n.Y" }} - {{ sprint.date_to|date:"d.n.Y" }}</h1>
@@ -12,7 +12,7 @@
 		{% endif %}
 		<hr />
 		
-		<div id="graphRoot" style="height:180px; width:80%; position:relative;"></div>
+		<div id="graphRoot" style="height:180px; width:50%; position:relative;"></div>
 		
 		<script>
 			
@@ -43,5 +43,5 @@
 		
 		
 	</div>
-
+</div>
 {% include "foot.html" %}

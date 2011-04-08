@@ -139,6 +139,9 @@
 					<p>
 						<a href="#" class="detail-info">info</a>&nbsp;|&nbsp;
 						<a href="#" class="detail-form">edit</a>
+						{% if loguser.is_superuser %}
+							&nbsp;|&nbsp;<a href="#" class="detail-remove">smazat</a>
+						{% endif %}
 					</p>
 				{% endif %}
 				<form action="/kanban/kanban/ticketedit/" method="post">

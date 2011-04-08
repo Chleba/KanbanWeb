@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     ( r'^kanban/addticket/$', 'kanban.tickets.views.addticket' ),
     ( r'^kanban/ticketdetail/(?P<ticket_id>\d+)/$', 'kanban.tickets.views.detail' ),
     ( r'^kanban/ticketedit/$', 'kanban.tickets.views.edit' ),
+    #( r'^kanban/ticketremove/(?P<ticket_id>\d+)/$', 'kanban.tickets.views.delete' ),
 
     #zobrazovani grafu
     ( r'^graphs/$', 'kanban.sprints.views.index' ),

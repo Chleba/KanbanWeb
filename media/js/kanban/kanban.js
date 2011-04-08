@@ -244,10 +244,19 @@ Kanban.TicketDetail.prototype._showForm = function(){
 	rq.setCallback(this, '_getDetail');
 	rq.send('/kanban/kanban/ticketdetail/'+id+'/');
 };
+Kanban.TicketDetail.prototype._removeDetail = function(e, elm){
+	if( window.confirm('Myslíš to opravdu vážne ? Neděláš si snad jenom prdel že ne ?') ){
+		return;
+	} else {
+		JAK.Events.cancelDef(e);
+		return false;
+	}
+};
 Kanban.TicketDetail.prototype._getDetail = function(data, status){
 	if(JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a').length > 0){
 		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
 		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-info', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
+		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0], 'click', this, '_removeDetail' ) );
 	}
 	eval('var data ='+data);
 	if(status == 200){

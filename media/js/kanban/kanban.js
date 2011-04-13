@@ -252,13 +252,15 @@ Kanban.TicketDetail.prototype._removeDetail = function(e, elm){
 		return false;
 	}
 };
-Kanban.TicketDetail.prototype._getDetail = function(data, status){
+Kanban.TicketDetail.prototype._getDetail = function(JSONData, status){
+	eval('var data ='+JSONData);
 	if(JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a').length > 0){
 		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
 		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-info', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
+		var removeElm = JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0];
+		if(removeElm){ removeElm.href = '/kanban/kanban/ticketremove/'+data.ticketId+'/'; }
 		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0], 'click', this, '_removeDetail' ) );
 	}
-	eval('var data ='+data);
 	if(status == 200){
 		var idInput = this.dom.cloneElm.getElementsByTagName('input');
 		for(var i=0;i<idInput.length;i++){

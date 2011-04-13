@@ -12,6 +12,7 @@ from kanban.table.models import Tables
 from django.contrib.auth.models import User
 from kanban.tickets.models import Tickets
 from kanban.sprints.models import Sprints
+import re
 
 def httpParser(url):
     url1 = url.split('http://')
@@ -122,6 +123,16 @@ def movetododevel(req, ticket_id):
 #enddef
 
 @login_required
+def delete(req, ticket_id):
+    logUser = req.user
+    if logUser.is_superuser:
+        ticket = Tickets.objects.get(pk=int(ticket_id))
+        ticket.delete()
+    #endif
+    return HttpResponseRedirect(reverse( 'kanban.tickets.views.index' ))
+#enddef
+
+@login_required
 def movedeveldone(req, ticket_id):
     logUser = req.user
     table = Tables.objects.filter(name='DONE')
@@ -225,7 +236,7 @@ def detail(req, ticket_id):
         'service : "'+str(ticket.service)+'",'\
         'difficulty : "'+str(ticket.difficulty)+'",'\
         'cmlurl : "'+str(ticket.cmlurl)+'",'\
-        'description : "'+str(ticket.description)+'",'\
+        'description : "'+re.sub(r'[\n\r]', '', str(ticket.description))+'",'\
         'pub_date : "'+str(ticket.pub_date)+'",'\
         'users : ['
 

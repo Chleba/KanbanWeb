@@ -13,3 +13,4 @@ media/*.jpg
 media/*.png
 media/*.gif
 Backups/*
+mysqlbackup.sh

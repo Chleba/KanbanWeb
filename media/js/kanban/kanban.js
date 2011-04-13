@@ -3,7 +3,8 @@ Kanban = {}
 
 Kanban.Tickets = JAK.ClassMaker.makeClass({
 	NAME : 'Kanban.Tickets',
-	VERSION : '1.0'
+	VERSION : '1.0',
+	EXTEND : JAK.ISignals
 });
 Kanban.Tickets.prototype.$constructor = function(opt){
 	this.dom = {};
@@ -27,6 +28,8 @@ Kanban.Tickets.prototype._drop = function(drgElm, cloneElm, drops){
 	
 	var targetElm = drops[0].id;
 	var fromElm = drgElm.parentNode.id;
+	
+	if(targetElm == fromElm){ return; }
 	
 	if(window.confirm('Opravdu chcete presunout tento tiket ?')){	
 		if(targetElm == 'devel' && fromElm == 'todo'){

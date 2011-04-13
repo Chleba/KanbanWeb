@@ -7,6 +7,7 @@ from django.shortcuts import  render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.utils.encoding import smart_str, smart_unicode
 from kanban.table.models import Tables
 #from kanban.users.models import Users
 from django.contrib.auth.models import User
@@ -231,14 +232,15 @@ def detail(req, ticket_id):
     ticket = Tickets.objects.get(pk=ticket_id)
     tables = Tables.objects.all()
     users = User.objects.all()
+    tDescription = re.sub(r'[\n\r]', '', ticket.description)
     json = '{'\
-        'ticketId : "'+str(ticket_id)+'",'\
-        'service : "'+str(ticket.service)+'",'\
-        'difficulty : "'+str(ticket.difficulty)+'",'\
-        'cmlurl : "'+str(ticket.cmlurl)+'",'\
-        'description : "'+re.sub(r'[\n\r]', '', str(ticket.description))+'",'\
-        'pub_date : "'+str(ticket.pub_date)+'",'\
-        'users : ['
+        'ticketId : "%s",'\
+        'service : "%s",'\
+        'difficulty : "%s",'\
+        'cmlurl : "%s",'\
+        'description : "%s",'\
+        'pub_date : "%s",'\
+        'users : [' % (ticket_id, ticket.service, ticket.difficulty, ticket.cmlurl, tDescription, ticket.pub_date)
 
     if logUser.is_superuser:
         ic = 0

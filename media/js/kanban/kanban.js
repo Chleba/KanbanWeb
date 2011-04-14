@@ -248,7 +248,7 @@ Kanban.TicketDetail.prototype._showForm = function(){
 	rq.send('/kanban/kanban/ticketdetail/'+id+'/');
 };
 Kanban.TicketDetail.prototype._removeDetail = function(e, elm){
-	if( window.confirm('Myslíš to opravdu vážne ? Neděláš si snad jenom prdel že ne ?') ){
+	if( window.confirm('OPRAVDU ???') ){
 		return;
 	} else {
 		JAK.Events.cancelDef(e);
@@ -261,8 +261,10 @@ Kanban.TicketDetail.prototype._getDetail = function(JSONData, status){
 		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
 		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-info', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
 		var removeElm = JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0];
-		if(removeElm){ removeElm.href = '/kanban/kanban/ticketremove/'+data.ticketId+'/'; }
-		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0], 'click', this, '_removeDetail' ) );
+		if(removeElm){ 
+			removeElm.href = '/kanban/kanban/ticketremove/'+data.ticketId+'/';
+			this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0], 'click', this, '_removeDetail' ) );
+		}
 	}
 	if(status == 200){
 		var idInput = this.dom.cloneElm.getElementsByTagName('input');

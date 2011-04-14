@@ -208,7 +208,7 @@ def edit(req):
 
     #odstraneni vsech uzivatelu z ticketu
     tusers = ticket.users.all()
-    if len(tusers) > 1:
+    if len(tusers) > 0:
         for tu in tusers:
             ticket.users.remove(tu)
         #endfor

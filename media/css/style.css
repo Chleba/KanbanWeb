@@ -24,7 +24,7 @@ h1				{ color:#000; text-align:center; }
 
 .addTicketButton		{ background:#ccc url(/media/img/button-plus.png) 8px 50% no-repeat; display:block; padding:8px 8px 8px 32px; border:2px solid #666; color:#000; font-weight:bold; font-size:125.5%; text-decoration:none; margin:5px auto; width:160px; }
 
-.collumn				{ width:31.9%; border:3px solid #464b47; float:left; margin-left:10px; background:#666 url(/media/img/ticketsbg.png) left top repeat; min-height:650px; _height:650px; }
+.collumn				{ width:31.9%; border:3px solid #464b47; float:left; margin-left:10px; background:#666 url(/media/img/ticketsbg.png) left top repeat; height:650px; overflow:auto; }
 .collumn h1				{ color:#FFF; text-align:left; text-transform:uppercase; padding:7px 0 0 15px; background:url(/media/img/tabbg.png) left top repeat-x; height:38px; }
 .collumn ul,ol			{ padding:0; margin:0; list-style-type:none; }
 .collumn .ticket,

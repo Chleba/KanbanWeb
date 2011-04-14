@@ -49,7 +49,12 @@ def detail(req, sprint_id):
             #endif
             df = df+addday
         #endwhile
+    else:
+        tickets = Tickets.objects.filter( Q(pub_date__lte=sprint.date_to) & (Q(devel_date__isnull=True) | Q(devel_date__lte=sprint.date_to, devel_date__gte=sprint.date_from)) & (Q(done_date__isnull=True) | Q(done_date__lte=sprint.date_to, done_date__gte=sprint.date_from)) )
+
+        pass
     #endif
+
     return render_to_response('sprints/detail.html', {
         'sprint' : sprint,
         'tickets' : tickets,

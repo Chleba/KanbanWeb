@@ -1,7 +1,7 @@
 {% include "head.html" %}
 
 	{% if sprints %}
-		<ul>
+		<ul class="sprintsList">
 		{% for s in sprints %}
 			<li><a href="/kanban/graphs/{{s.id}}/detail/">Sprint od: {{ s.date_from|date:"d.n.Y" }} do: {{ s.date_to|date:"d.n.Y" }}</a></li>
 		{% endfor %}

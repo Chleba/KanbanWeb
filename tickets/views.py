@@ -197,33 +197,39 @@ def addticket(req):
 
 @login_required
 def edit(req):
+    logUser = req.user
     postData = req.POST
     table = Tables.objects.get(pk=postData['tables'])
     ticket = Tickets.objects.get(pk=postData['ticketId'])
-    ticket.service = postData['service']
-    ticket.cmlurl = httpParser(postData['cmlurl'])
-    ticket.difficulty = postData['difficulty']
-    ticket.description = postData['description']
-    ticket.save()
 
-    #odstraneni vsech uzivatelu z ticketu
-    tusers = ticket.users.all()
-    if len(tusers) > 0:
-        for tu in tusers:
-            ticket.users.remove(tu)
+    if logUser not in ticket.users.all() and logUser.is_superuser is False:
+        return HttpResponseRedirect(reverse('kanban.tickets.views.index'))
+    else:
+        ticket.service = postData['service']
+        ticket.cmlurl = httpParser(postData['cmlurl'])
+        ticket.difficulty = postData['difficulty']
+        ticket.description = postData['description']
+        ticket.save()
+
+        #odstraneni vsech uzivatelu z ticketu
+        tusers = ticket.users.all()
+        if len(tusers) > 0:
+            for tu in tusers:
+                ticket.users.remove(tu)
+            #endfor
+        #endif
+        #pridani novych uzivatelu do ticketu
+        users = postData.getlist('users')
+        for u in users:
+            user = User.objects.get(pk=int(u))
+            ticket.users.add(user)
         #endfor
-    #endif
-    #pridani novych uzivatelu do ticketu
-    users = postData.getlist('users')
-    for u in users:
-        user = User.objects.get(pk=int(u))
-        ticket.users.add(user)
-    #endfor
 
-    ticket.tables.remove(ticket.tables.all()[0])
-    ticket.tables.add(table)
-    ticket.save()
-    return HttpResponseRedirect(reverse( 'kanban.tickets.views.index' ))
+        ticket.tables.remove(ticket.tables.all()[0])
+        ticket.tables.add(table)
+        ticket.save()
+        return HttpResponseRedirect(reverse( 'kanban.tickets.views.index' ))
+    #endif
 #enddef
 
 @login_required

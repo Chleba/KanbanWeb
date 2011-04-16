@@ -185,10 +185,11 @@ Kanban.TicketDetail = JAK.ClassMaker.makeClass({
 	NAME : 'Kanban.TicketDetail',
 	VERSION : '1.0'
 });
-Kanban.TicketDetail.prototype.$constructor = function(form){
+Kanban.TicketDetail.prototype.$constructor = function(form, logUserId){
 	this.dom = {};
 	this.dom.form = JAK.gel(form);
 	this.ec = [];
+	this.logUserId = logUserId;
 	this.isOpen = false;
 	this.dom.tickets = JAK.DOM.getElementsByClass('avatar');
 	this._buildDetail();
@@ -255,15 +256,33 @@ Kanban.TicketDetail.prototype._removeDetail = function(e, elm){
 		return false;
 	}
 };
+Kanban.TicketDetail.prototype._isMyTicket = function(users){
+	for(var i=0;i<users.length;i++){
+		if(users[i].selected){
+			return true;
+		}
+	}
+	return false;
+};
 Kanban.TicketDetail.prototype._getDetail = function(JSONData, status){
 	eval('var data ='+JSONData);
+	var isMyTicket = this._isMyTicket(data.users);
+	console.log(isMyTicket);
+	
 	if(JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a').length > 0){
-		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
-		this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-info', this.dom.cloneElm, 'a')[0], 'click', this, '_changeDetail' ) );
-		var removeElm = JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0];
-		if(removeElm){ 
-			removeElm.href = '/kanban/kanban/ticketremove/'+data.ticketId+'/';
-			this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0], 'click', this, '_removeDetail' ) );
+		var editForm = JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a')[0];
+		var infoForm = JAK.DOM.getElementsByClass('detail-info', this.dom.cloneElm, 'a')[0];
+		if(isMyTicket == true){
+			this.ec.push( JAK.Events.addListener( editForm, 'click', this, '_changeDetail' ) );
+			this.ec.push( JAK.Events.addListener( infoForm, 'click', this, '_changeDetail' ) );
+			var removeElm = JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0];
+			if(removeElm){ 
+				removeElm.href = '/kanban/kanban/ticketremove/'+data.ticketId+'/';
+				this.ec.push( JAK.Events.addListener( JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0], 'click', this, '_removeDetail' ) );
+			}
+		} else {
+			editForm.style.display = 'none';
+			infoForm.style.display = 'none';
 		}
 	}
 	if(status == 200){

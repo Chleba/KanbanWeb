@@ -215,7 +215,7 @@
 					doneElm : 'done'
 				};
 				var tickets = new Kanban.Tickets(opt);
-				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox');
+				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox', {{ loguser.id }});
 				var usersTickets = new Kanban.UsersTickets('userTicket');
 			</script>
 		</div>	

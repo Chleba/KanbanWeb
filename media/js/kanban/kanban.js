@@ -267,7 +267,6 @@ Kanban.TicketDetail.prototype._isMyTicket = function(users){
 Kanban.TicketDetail.prototype._getDetail = function(JSONData, status){
 	eval('var data ='+JSONData);
 	var isMyTicket = this._isMyTicket(data.users);
-	console.log(isMyTicket);
 	
 	if(JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a').length > 0){
 		var editForm = JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a')[0];

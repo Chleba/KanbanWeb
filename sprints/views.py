@@ -1,12 +1,31 @@
 from datetime import datetime, date, timedelta
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from kanban.sprints.models import Sprints
 from kanban.tickets.models import Tickets
+from kanban.table.models import Tables
+from django.contrib.auth.models import User
 from django.db.models import Q
 
 def index(req):
     sprints = Sprints.objects.order_by('date_to')
     return render_to_response('sprints/index.html', { 'sprints' : sprints, })
+#enddef
+
+def browse(req, sprint_id):
+    sprint = Sprints.objects.get(pk=int(sprint_id))
+    try:
+        return HttpResponse(req.GET['date'])
+    except:
+        sprintDate = sprint.date_from
+        tables = Tables.objects.all()
+        users = User.objects.all()
+        # todo table - tickets
+        t = Tickets.objects.filter( Q(pub_date__lte=s.date_from) & Q(devel_date__gt=s.date_from) & Q(done_date__gt=s.date_from) )
+        
+
+        return HttpResponse(sprint_id) 
+    #endtry
 #enddef
 
 def detail(req, sprint_id):

@@ -36,6 +36,9 @@ urlpatterns = patterns('',
     ( r'^graphs/$', 'kanban.sprints.views.index' ),
     ( r'^graphs/(?P<sprint_id>\d+)/detail/$', 'kanban.sprints.views.detail' ),
 
+    #prochazeni sprinty
+    ( r'^(?P<sprint_id>\d+)/browse/$', 'kanban.sprints.views.browse' ),
+
     #pokus anketa
     ( r'^polls/$', 'kanban.pokus.views.index' ),
     ( r'^polls/(?P<poll_id>\d+)/$', 'kanban.pokus.views.detail' ),

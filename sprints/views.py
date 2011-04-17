@@ -12,6 +12,9 @@ def index(req):
 def detail(req, sprint_id):
     sprint = Sprints.objects.get(pk=sprint_id)
     if sprint.date_to > datetime.now():
+        '''
+        # Prave probihajici sprint
+        '''
         tickets = Tickets.objects.filter( Q(done_date__isnull=True) | Q(done_date__lte=sprint.date_to, done_date__gt=sprint.date_from))
         dates = []
         todo = []
@@ -50,6 +53,9 @@ def detail(req, sprint_id):
             df = df+addday
         #endwhile
     else:
+        '''
+        # Predchozi sprinty
+        '''
         tickets = Tickets.objects.filter( Q(pub_date__lte=sprint.date_to) & (Q(devel_date__isnull=True) | Q(devel_date__lte=sprint.date_to, devel_date__gte=sprint.date_from)) & (Q(done_date__isnull=True) | Q(done_date__lte=sprint.date_to, done_date__gte=sprint.date_from)) )
         dates = []
         todo = []

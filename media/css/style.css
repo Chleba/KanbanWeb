@@ -63,8 +63,9 @@ h1				{ color:#000; text-align:center; }
 
 .loading				{ background:#000 url(/media/img/ajax-loader.gif) 50% 50% no-repeat; }
 
-.sprintsList 			{ width:60%; margin:0 auto; list-style-type:none; }
-.sprintsList a 			{ color:#fff; font-weight:bold; font-size:20px; }
+.sprintsList 			{ width:60%; margin:0 auto; list-style-type:none; font-size:18px; color:#fff; }
+.sprintsList td			{ border:1px dotted #ccc; padding-left:15px; }
+.sprintsList a 			{ color:#fff; }
 
 #graphRoot				{ width:50%; margin:0 auto; }
 .graphDetail 			{ color:#fff; }

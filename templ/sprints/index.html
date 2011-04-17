@@ -1,11 +1,17 @@
 {% include "head.html" %}
 
 	{% if sprints %}
-		<ul class="sprintsList">
+		<table class="sprintsList">
 		{% for s in sprints %}
-			<li><a href="/kanban/graphs/{{s.id}}/detail/">Sprint od: {{ s.date_from|date:"d.n.Y" }} do: {{ s.date_to|date:"d.n.Y" }}</a></li>
+			<tr>
+				<td>Sprint od: {{ s.date_from|date:"d.n.Y" }} do: {{ s.date_to|date:"d.n.Y" }}</td>
+				<td>
+					<a href="/kanban/graphs/{{s.id}}/detail/"><img src="/media/img/chart_bar.png" alt="Graf" title="Graf" /></a>
+					<a href="/kanban/graphs/{{s.id}}/browse/"><img src="/media/img/eye.png" alt="Prochazet" title="Prochazet" /></a>
+				</td>
+			</tr>
 		{% endfor %}
-		</ul>
+		</table>
 	{% endif %}
 
 {% include "foot.html" %}

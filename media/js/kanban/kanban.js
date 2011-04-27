@@ -47,7 +47,7 @@ Kanban.Tickets.prototype._drop = function(drgElm, cloneElm, drops){
 			rq.send(url);
 		}
 	}
-}
+};
 Kanban.Tickets.prototype._move = function(txt, status){
 	if(status == 200){
 		eval('var data = '+txt);
@@ -65,7 +65,7 @@ Kanban.Tickets.prototype._move = function(txt, status){
 			}
 		}
 	}
-}
+};
 Kanban.Tickets.prototype._link = function(){
 	var todoItems = JAK.DOM.getElementsByClass('ticket', this.dom.todo, 'div');
 	var develItems = JAK.DOM.getElementsByClass('ticket', this.dom.devel, 'div');

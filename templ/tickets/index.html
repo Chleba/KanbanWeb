@@ -56,7 +56,7 @@
 							<div class="owners">
 								{% for u in ticket.users.all %}
 									{% if u.get_profile.avatarImg %}
-										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/www/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
 									{% else %}
 										{{ u.username }}
 									{% endif %}
@@ -86,7 +86,7 @@
 							<div class="owners">
 								{% for u in ticket.users.all %}
 									{% if u.get_profile.avatarImg %}
-										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/www/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
 									{% else %}
 										{{ u.username }}
 									{% endif %}
@@ -116,7 +116,7 @@
 							<div class="owners">
 								{% for u in ticket.users.all %}
 									{% if u.get_profile.avatarImg %}
-										<p><img src="{{ u.get_profile.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
+										<p><img src="{{ u.get_profile.avatarImg|cut:'/www/kanban' }}" alt="{{ u.username }}" title="{{ u.username }}" width="50" /></p>
 									{% else %}
 										{{ u.username }}
 									{% endif %}
@@ -215,7 +215,7 @@
 					doneElm : 'done'
 				};
 				var tickets = new Kanban.Tickets(opt);
-				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox', {{ loguser.id }});
+				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox', {{ loguser.id }}, '{{ loguser.is_superuser }}');
 				var usersTickets = new Kanban.UsersTickets('userTicket');
 			</script>
 		</div>	

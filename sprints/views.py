@@ -21,7 +21,7 @@ def browse(req, sprint_id):
         tables = Tables.objects.all()
         users = User.objects.all()
         # todo table - tickets
-        t = Tickets.objects.filter( Q(pub_date__lte=s.date_from) & Q(devel_date__gt=s.date_from) & Q(done_date__gt=s.date_from) )
+        t = Tickets.objects.filter( Q(pub_date__lte=sprint.date_from) & Q(devel_date__gt=sprint.date_from) & Q(done_date__gt=sprint.date_from) )
         
 
         return HttpResponse(sprint_id) 

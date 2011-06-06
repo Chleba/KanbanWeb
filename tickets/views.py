@@ -239,58 +239,58 @@ def detail(req, ticket_id):
     tables = Tables.objects.all()
     users = User.objects.all()
     tDescription = re.sub(r'[\n\r]', '', ticket.description)
-    json = '{'\
-        'ticketId : "%s",'\
-        'service : "%s",'\
-        'difficulty : "%s",'\
-        'cmlurl : "%s",'\
-        'description : "%s",'\
-        'pub_date : "%s",'\
-        'users : [' % (ticket_id, ticket.service, ticket.difficulty, ticket.cmlurl, tDescription, ticket.pub_date)
+    json = "{"\
+        "ticketId : '%s',"\
+        "service : '%s',"\
+        "difficulty : '%s',"\
+        "cmlurl : '%s',"\
+        "description : '%s',"\
+        "pub_date : '%s',"\
+        "users : [" % (ticket_id, ticket.service, ticket.difficulty, ticket.cmlurl, tDescription, ticket.pub_date)
 
     if logUser.is_superuser:
         ic = 0
         for u in users:
             ic+=1
-            json += '{ name : "'+str(u)+'", id : '+str(u.id)
+            json += "{ name : '"+str(u)+"', id : "+str(u.id)
             if len(ticket.users.all()) > 0:
                 if u.id == ticket.users.all()[0].id:
-                    json += ', selected : "1"'
+                    json += ", selected : '1'"
                 #endif
             #endif
-            json += ' }'
+            json += " }"
             if ic < len(users):
-                json += ','
+                json += ","
         #endfor
     else:
-        json += '{ name : "'+str(logUser)+'", id : '+str(logUser.id)
-        if logUser.id == ticket.users.filter(pk=logUser.id):
-            json += ', selected : "1"'
+        json += "{ name : '"+str(logUser)+"', id : "+str(logUser.id)
+        if ticket.users.filter(pk=logUser.id):
+            json += ", selected : '1'"
         #endif
-        json += ' }'
+        json += " }"
     #endif
 
-    json += '],'\
-        'tables : ['
+    json += "],"\
+        "tables : ["
     ic = 0
     for t in tables:
         ic+=1
-        json += '{ name : "'+str(t)+'", id : '+str(t.id)
+        json += "{ name : '"+str(t)+"', id : "+str(t.id)
         if t == ticket.tables.all()[0]:
-            json += ', selected : "1"'
+            json += ", selected : '1'"
         #endif
-        json += ' }'
+        json += " }"
         if ic < len(tables):
-            json += ','
+            json += ","
     #endfor
-    json += ']'
+    json += "]"
     if ticket.devel_date is not None or ticket.done_date is not None:
-        json += ','
+        json += ","
     if ticket.devel_date is not None:
-        json += 'devel_date : "'+str(ticket.devel_date)+'"'
+        json += "devel_date : '"+str(ticket.devel_date)+"'"
     if ticket.done_date is not None:
-        json += ', done_date : "'+str(ticket.done_date)+'"'
-    json += '}'
+        json += ", done_date : '"+str(ticket.done_date)+"'"
+    json += "}"
     #from django.core import serializers
     #json = serializers.serialize('json', [ticket])
     return HttpResponse(json)

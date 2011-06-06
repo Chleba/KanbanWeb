@@ -34,7 +34,7 @@
 						<td>avatar:</td>
 						<td>
 							{% if user.avatarImg %}
-								<img src="{{ user.avatarImg|cut:'/home/chleba/chlebaPrivate/kanban' }}" alt="" title="" width="160" />
+								<img src="{{ user.avatarImg|cut:'/www/kanban' }}" alt="" title="" width="160" />
 							{% else %}
 								<input type="file" name="avatarImg" value="" />
 							{% endif %}

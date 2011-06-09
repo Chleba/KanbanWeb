@@ -59,6 +59,9 @@
 								{% endfor %}
 								<div class="clear"></div>
 							</div>
+							<a href="#" class="avatar">
+								<span class="zoom"></span>
+							</a>
 						</div>
 					{% endfor %}
 					<div class="clear"></div>
@@ -86,6 +89,9 @@
 								<div class="clear"></div>
 							</div>
 						</div>
+						<a href="#" class="avatar">
+							<span class="zoom"></span>
+						</a>
 					{% endfor %}
 					<div class="clear"></div>
 				{% endif %}
@@ -111,12 +117,90 @@
 								{% endfor %}
 								<div class="clear"></div>
 							</div>
+							<a href="#" class="avatar">
+								<span class="zoom"></span>
+							</a>
 						</div>
 					{% endfor %}
 					<div class="clear"></div>
 				{% endif %}
 			</div>
 			<div class="clear"></div>
+			
+			<div id="ticketDetailBox" class="addNewTicket">
+				{% if loguser.is_staff %}
+					<p>
+						<a href="#" class="detail-info">info</a>&nbsp;|&nbsp;
+						<a href="#" class="detail-form">edit</a>
+					</p>
+				{% endif %}
+				<form action="/kanban/kanban/ticketedit/" method="post">
+					{% csrf_token %}
+					<input type="hidden" class="ticketId" name="ticketId" value="" />
+					<div class="item" id="td-dates"></div>
+					<div class="row">
+						<label for="td-table">Table: </label>
+						<div class="item" id="td-table">
+							<span class="detailInfo"></span>
+							<select name="tables">
+							</select>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-users">Vlastník: </label>
+						<div class="item" id="td-users">
+							<span class="detailInfo"></span>
+							<select name="users" multiple="multiple">
+							</select>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-service">Služba: </label>
+						<div class="item" id="td-service">
+							<span class="detailInfo"></span>
+							<input type="text" name="service" value="" />
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-cml">CML: </label>
+						<div class="item" id="td-cml">
+							<span class="detailInfo"></span>
+							<input type="text" name="cmlurl" value="" />
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-dificulty">Obtížnost: </label>
+						<div class="item" id="td-dificulty">
+							<span class="detailInfo"></span>
+							<input type="text" name="difficulty" value="" />
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label for="td-desc">Popis: </label>
+						<div class="item" id="td-desc">
+							<span class="detailInfo"></span>
+							<textarea name="description"></textarea>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="row">
+						<label>&nbsp;</label>
+						<div class="item">
+							<input type="submit" value="Odeslat" />
+						</div>
+						<div class="clear"></div>
+					</div>
+				</form>
+			</div>
+			
+			<script type="text/javascript">
+				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox', {{ loguser.id }}, '{{ loguser.is_superuser }}', 0);
+			</script>
 			
 		</div>	
 		

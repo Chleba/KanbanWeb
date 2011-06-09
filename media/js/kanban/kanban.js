@@ -185,12 +185,14 @@ Kanban.TicketDetail = JAK.ClassMaker.makeClass({
 	NAME : 'Kanban.TicketDetail',
 	VERSION : '1.0'
 });
-Kanban.TicketDetail.prototype.$constructor = function(form, logUserId){
+Kanban.TicketDetail.prototype.$constructor = function(form, logUserId, issuperuser, showLinks){
 	this.dom = {};
 	this.dom.form = JAK.gel(form);
 	this.ec = [];
 	this.logUserId = logUserId;
+	this.issuperuser = issuperuser == 'True' ? 1 : 0;
 	this.isOpen = false;
+	this.showLinks = showLinks;
 	this.dom.tickets = JAK.DOM.getElementsByClass('avatar');
 	this._buildDetail();
 	this._link();
@@ -260,6 +262,7 @@ Kanban.TicketDetail.prototype._isMyTicket = function(users){
 	for(var i=0;i<users.length;i++){
 		if(users[i].selected){
 			return true;
+			break;
 		}
 	}
 	return false;
@@ -271,7 +274,7 @@ Kanban.TicketDetail.prototype._getDetail = function(JSONData, status){
 	if(JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a').length > 0){
 		var editForm = JAK.DOM.getElementsByClass('detail-form', this.dom.cloneElm, 'a')[0];
 		var infoForm = JAK.DOM.getElementsByClass('detail-info', this.dom.cloneElm, 'a')[0];
-		if(isMyTicket == true){
+		if((isMyTicket == true || this.issuperuser) && this.showLinks ){
 			this.ec.push( JAK.Events.addListener( editForm, 'click', this, '_changeDetail' ) );
 			this.ec.push( JAK.Events.addListener( infoForm, 'click', this, '_changeDetail' ) );
 			var removeElm = JAK.DOM.getElementsByClass('detail-remove', this.dom.cloneElm, 'a')[0];

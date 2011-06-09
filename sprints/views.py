@@ -1,6 +1,7 @@
 from datetime import datetime, date, timedelta
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
 from kanban.sprints.models import Sprints
 from kanban.tickets.models import Tickets
 from kanban.table.models import Tables
@@ -14,18 +15,68 @@ def index(req):
 
 def browse(req, sprint_id):
     sprint = Sprints.objects.get(pk=int(sprint_id))
-    try:
-        return HttpResponse(req.GET['date'])
-    except:
-        sprintDate = sprint.date_from
-        tables = Tables.objects.all()
-        users = User.objects.all()
-        # todo table - tickets
-        t = Tickets.objects.filter( Q(pub_date__lte=sprint.date_from) & Q(devel_date__gt=sprint.date_from) & Q(done_date__gt=sprint.date_from) )
-        
+    users = User.objects.all()
+    tables = Tables.objects.all()
+    logUser = req.user
+    tickets = Tickets.objects.filter( Q(pub_date__lte=sprint.date_to) & (Q(devel_date__isnull=True) | Q(devel_date__lte=sprint.date_to, devel_date__gte=sprint.date_from)) & (Q(done_date__isnull=True) | Q(done_date__lte=sprint.date_to, done_date__gte=sprint.date_from)) )
+    '''
+    Ulozeni jednotlivych dnu prochazejiciho sprintu pro vypisovani do selectu a jeho jednoduche prepinani
+    '''
+    sprintDates = []
+    df = sprint.date_from
+    while df <= sprint.date_to:
+        sprintDates.append(df)
+        df = df+timedelta(days=1)
+    #endwhile
 
-        return HttpResponse(sprint_id) 
-    #endtry
+    todo = []
+    devel = []
+    done = []
+
+    if 'date' in req.GET:
+        getDate = req.GET['date'].split('.')
+        actualDate = date(int(getDate[2]), int(getDate[1]), int(getDate[0]))
+        '''
+        Ulozeni ticketu do jednotlivych sloupcu
+        '''
+        for t in tickets:
+            if t.pub_date.date() <= actualDate and (t.devel_date is None or t.devel_date.date() > actualDate):
+                todo.append(t)
+            #endif
+            if t.devel_date is not None and t.devel_date.date() == actualDate and t.done_date.date() > actualDate:
+                devel.append(t)
+            #endif
+            if t.done_date is not None and (t.done_date.date() == actualDate or t.done_date.date() < actualDate):
+                done.append(t)
+            #endif
+        #endfor
+
+    else:
+        actualDate = sprint.date_from
+        for t in tickets:
+            if t.pub_date.date() <= sprint.date_from.date() and (t.devel_date is None or t.devel_date.date() > sprint.date_from.date()):
+                todo.append(t)
+            #endif
+            if t.devel_date is not None and t.devel_date.date() == sprint.date_from.date() and t.done_date.date() > sprint.date_from.date():
+                devel.append(t)
+            #endif
+            if t.done_date is not None and t.done_date.date() == sprint.date_from.date():
+                done.append(t)
+            #endif
+        #endfor
+
+    return render_to_response('sprints/browse.html', {
+        'todo' : todo,
+        'devel' : devel,
+        'done' : done,
+        'tables' : tables,
+        'users' : users,
+        'loguser' : logUser,
+        'sprint' : sprint,
+        'sprintDates' : sprintDates,
+        'actualDate' : actualDate,
+    }, context_instance = RequestContext(req))
+
 #enddef
 
 def detail(req, sprint_id):

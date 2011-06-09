@@ -17,10 +17,11 @@ a img		{ border:0px; padding:0; margin:0; }
 
 .error			{ color:#FFF; background:#a30000; font-weight:bold; font-size:123.5%; text-align:center; border:2px solid #000; padding:5px; margin:5px; }
 
-h1				{ color:#000; text-align:center; }
+h1				{ color:#FFF; text-align:center; }
 
 .graphs 		{ color:#fff; }
 .graphs a 		{ color:#fff; }
+.graphs form	{ display:inline; }
 
 .addTicketButton		{ background:#ccc url(/media/img/button-plus.png) 8px 50% no-repeat; display:block; padding:8px 8px 8px 32px; border:2px solid #666; color:#000; font-weight:bold; font-size:125.5%; text-decoration:none; margin:5px auto; width:160px; }
 
@@ -29,6 +30,7 @@ h1				{ color:#000; text-align:center; }
 .collumn ul,ol			{ padding:0; margin:0; list-style-type:none; }
 .collumn .ticket,
 .ticket					{ background-color:#dfe9e5; padding:8px; border:3px solid #b3bab7; width:43%; height:130px; margin:5px 0px 0px 5px; float:left; overflow:hidden; position:relative; }
+.past .ticket			{ background-color:#FFDB6E; }
 .collumn .ticket h3		{ color:#3366cc; float:left; }
 .ticket .date			{ float:right; padding-top:3px; }
 .ticket.draggable		{ opacity:0.6; }

@@ -51,6 +51,15 @@ def browse(req, sprint_id):
             #endif
         #endfor
 
+        prevArrow = actualDate+timedelta(days=-1)
+        nextArrow = actualDate+timedelta(days=1)
+        if actualDate == sprint.date_from.date():
+            prevArrow = sprint.date_from.date()
+        #endif
+        if actualDate == sprint.date_to.date():
+            nextArrow = sprint.date_to.date()
+        #endif
+
     else:
         actualDate = sprint.date_from
         for t in tickets:
@@ -64,6 +73,9 @@ def browse(req, sprint_id):
                 done.append(t)
             #endif
         #endfor
+  
+        prevArrow = actualDate
+        nextArrow = actualDate+timedelta(days=1)
 
     return render_to_response('sprints/browse.html', {
         'todo' : todo,
@@ -75,6 +87,8 @@ def browse(req, sprint_id):
         'sprint' : sprint,
         'sprintDates' : sprintDates,
         'actualDate' : actualDate,
+        'prevArrow' : prevArrow,
+        'nextArrow' : nextArrow,
     }, context_instance = RequestContext(req))
 
 #enddef

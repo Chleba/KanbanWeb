@@ -4,6 +4,12 @@
 		<h1>Prochazeni sprintem {{ sprint.date_from|date:"d.n.Y" }} - {{ sprint.date_to|date:"d.n.Y" }} </h1>
 		<h1>{{ actualDate|date:"d.n.Y" }}</h1>
 		
+		<div class="arrows">
+			<a href="/kanban/{{ sprint.id }}/browse/?date={{ prevArrow|date:"d.n.Y" }}"><img src="/media/img/prev_arrow.png" alt="" title="" /></a>
+			<a href="/kanban/{{ sprint.id }}/browse/?date={{ nextArrow|date:"d.n.Y" }}"><img src="/media/img/next_arrow.png" alt="" title="" /></a>
+			<div class="clear"></div>
+		</div>
+		
 		<div id="tablesTickets" class="past">
 			<div class="collumn todo radius-all-small" id="todo">
 				<h1>TODO</h1>

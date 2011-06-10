@@ -1,31 +1,6 @@
 
 	{% include "head.html" %}
-		
-		<div class="graphs">
-			<a href="/kanban/graphs">Zobrazit grafy</a>&nbsp;|&nbsp;
-			<a href="/kanban/logout/">Logout</a>&nbsp;|&nbsp;
-			<a href="/kanban/profile/">
-				{% if loguser.first_name == '' %}
-					{{ loguser.username }}
-				{% else %}
-					{{ loguser.first_name }}&nbsp;{{ loguser.last_name }}
-				{% endif %}
-			</a>
-			&nbsp;|&nbsp;
-			<select name="userTicket" id="userTicket">
-				<option value="0" selected="selected">Vše</option>
-				{% for u in users %}
-					<option value="{{ u.username }}">
-					{% if u.first_name == '' %}
-						{{ u.username }}
-					{% else %}
-						{{ u.first_name }}&nbsp;{{ u.last_name }}
-					{% endif %}
-					</option>
-				{% endfor %}
-			</select>
-		</div>
-		
+				
 		{% if error_message %}
 			<div class="error">
 				<p>{{ error_message }}</p>

@@ -19,9 +19,16 @@ a img		{ border:0px; padding:0; margin:0; }
 
 h1				{ color:#FFF; text-align:center; }
 
+.head			{ position:relative; padding:0; margin:0; width:110px; overflow:hidden; height:55px; -moz-transition: all 1s ease-in-out 0s; }
+.head:hover		{ width:650px; }
 .graphs 		{ color:#fff; }
 .graphs a 		{ color:#fff; }
 .graphs form	{ display:inline; }
+.login			{ background-color:#000; opacity:0.8; position:relative; top:0px; float:left; color:#FFF; padding:0 10px; }
+.login a		{ font-weight:bold; color:#FFF; font-size:18px; background:url(/media/img/plus.png) left center no-repeat; padding:15px 10px 15px 35px; display:block; text-decoration:none; }
+.topMenu		{ background-color:#000; padding:1px 10px 11px 10px; position:absolute; left:100px; width:600px; }
+.home img		{ position:relative; }
+
 
 .addTicketButton		{ background:#ccc url(/media/img/button-plus.png) 8px 50% no-repeat; display:block; padding:8px 8px 8px 32px; border:2px solid #666; color:#000; font-weight:bold; font-size:125.5%; text-decoration:none; margin:5px auto; width:160px; }
 

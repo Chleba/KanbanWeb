@@ -16,3 +16,51 @@
 		<script type="text/javascript" src="/media/js/kanban/kanban.js?0"></script>
 	</head>
 	<body>
+		<div class="head">
+			<div class="login">
+				<a href="#">MENU</a>
+			</div>
+			<div class="graphs topMenu">
+				<a href="/kanban/graphs">Zobrazit grafy</a>&nbsp;|&nbsp;
+				<a href="/kanban/logout/">Logout</a>&nbsp;|&nbsp;
+				<a href="/kanban/profile/">
+					{% if loguser.first_name == '' %}
+						{{ loguser.username }}
+					{% else %}
+						{{ loguser.first_name }}&nbsp;{{ loguser.last_name }}
+					{% endif %}
+				</a>
+				
+				{% if users %}
+				&nbsp;|&nbsp;
+				<select name="userTicket" id="userTicket">
+					<option value="0" selected="selected">Vše</option>
+					{% for u in users %}
+						<option value="{{ u.username }}">
+						{% if u.first_name == '' %}
+							{{ u.username }}
+						{% else %}
+							{{ u.first_name }}&nbsp;{{ u.last_name }}
+						{% endif %}
+						</option>
+					{% endfor %}
+				</select>
+				{% endif %}
+				
+				{% if sprintDates %}
+				<!--- datumy sprintu --->
+				<form method="get" action="/kanban/{{ sprint.id }}/browse/">
+					<select name="date" onchange="this.form.submit();">
+						{% for date in sprintDates %}
+							<option value="{{ date|date:"d.n.Y" }}" {% if date|date:"d.n.Y" == actualDate|date:"d.n.Y"  %}selected="selected"{%endif%}>{{ date|date:"d.n.Y" }}</option>
+						{% endfor %}
+					</select>
+				</form>
+				{% endif %}
+				
+				<a class="home" href="/kanban/kanban/"><img src="/media/img/house.png" alt="home" title="" /></a>
+				
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>

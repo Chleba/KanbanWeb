@@ -43,7 +43,7 @@ def browse(req, sprint_id):
             if t.pub_date.date() <= actualDate and (t.devel_date is None or t.devel_date.date() > actualDate):
                 todo.append(t)
             #endif
-            if t.devel_date is not None and t.devel_date.date() == actualDate and t.done_date.date() > actualDate:
+            if t.devel_date is not None and t.done_date is not None and (t.devel_date.date() == actualDate and t.done_date.date() > actualDate):
                 devel.append(t)
             #endif
             if t.done_date is not None and (t.done_date.date() == actualDate or t.done_date.date() < actualDate):

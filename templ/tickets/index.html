@@ -190,7 +190,7 @@
 					doneElm : 'done'
 				};
 				var tickets = new Kanban.Tickets(opt);
-				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox', {{ loguser.id }}, '{{ loguser.is_superuser }}');
+				var ticketDetail = new Kanban.TicketDetail('ticketDetailBox', {{ loguser.id }}, '{{ loguser.is_superuser }}', 1);
 				var usersTickets = new Kanban.UsersTickets('userTicket');
 			</script>
 		</div>	
